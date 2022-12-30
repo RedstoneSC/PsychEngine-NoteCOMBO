@@ -1781,7 +1781,7 @@ class PlayState extends MusicBeatState
 
 				cutsceneHandler.timer(4, function()
 				{
-					focusshit = 'gf'
+					focusshit = 'gf';
 					gf.playAnim('sad', true);
 					gf.animation.finishCallback = function(name:String)
 					{
