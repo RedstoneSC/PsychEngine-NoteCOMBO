@@ -71,6 +71,7 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	var focusshit:String = '';
 	var notecomboSpritelol:FlxSprite;
 	var focusfornotecombo:String = 'dad';
 	var coolcombo:Int = 0;
@@ -1729,6 +1730,7 @@ class PlayState extends MusicBeatState
 				// Move camera to BF
 				cutsceneHandler.timer(3, function()
 				{
+					focusshit = 'bf';
 					camFollow.x += 750;
 					camFollow.y += 100;
 				});
@@ -1744,6 +1746,7 @@ class PlayState extends MusicBeatState
 				// Move camera to Tankman
 				cutsceneHandler.timer(6, function()
 				{
+					focusshit = 'dad';
 					camFollow.x -= 750;
 					camFollow.y -= 100;
 
@@ -1758,6 +1761,8 @@ class PlayState extends MusicBeatState
 				tankman.x += 40;
 				tankman.y += 10;
 				precacheList.set('tankSong2', 'sound');
+
+				focusshit = 'dad';
 
 				var tightBars:FlxSound = new FlxSound().loadEmbedded(Paths.sound('tankSong2'));
 				FlxG.sound.list.add(tightBars);
@@ -1776,14 +1781,17 @@ class PlayState extends MusicBeatState
 
 				cutsceneHandler.timer(4, function()
 				{
+					focusshit = 'gf'
 					gf.playAnim('sad', true);
 					gf.animation.finishCallback = function(name:String)
 					{
 						gf.playAnim('sad', true);
 					};
+					focusshit = 'dad';
 				});
 
 			case 'stress':
+				focusshit = 'dad';
 				cutsceneHandler.endTime = 35.5;
 				tankman.x -= 54;
 				tankman.y -= 14;
@@ -1863,6 +1871,7 @@ class PlayState extends MusicBeatState
 
 				cutsceneHandler.timer(15.2, function()
 				{
+					focusshit = 'gf';
 					FlxTween.tween(camFollow, {x: 650, y: 300}, 1, {ease: FlxEase.sineOut});
 					FlxTween.tween(FlxG.camera, {zoom: 0.9 * 1.2 * 1.2}, 2.25, {ease: FlxEase.quadInOut});
 
@@ -1875,6 +1884,7 @@ class PlayState extends MusicBeatState
 						{
 							gfCutscene.animation.play('getRektLmao', true);
 							gfCutscene.offset.set(224, 445);
+							focusshit = 'gf';
 						}
 						else
 						{
@@ -1912,6 +1922,7 @@ class PlayState extends MusicBeatState
 
 				cutsceneHandler.timer(19.5, function()
 				{
+					focusshit = 'dad';
 					tankman2.animation.addByPrefix('lookWhoItIs', 'TANK TALK 3', 24, false);
 					tankman2.animation.play('lookWhoItIs', true);
 					tankman2.alpha = 1;
@@ -1925,6 +1936,7 @@ class PlayState extends MusicBeatState
 
 				cutsceneHandler.timer(31.2, function()
 				{
+					focusshit = 'bf';
 					boyfriend.playAnim('singUPmiss', true);
 					boyfriend.animation.finishCallback = function(name:String)
 					{
@@ -1942,6 +1954,7 @@ class PlayState extends MusicBeatState
 
 				cutsceneHandler.timer(32.2, function()
 				{
+					focusshit = 'dad';
 					zoomBack();
 				});
 		}
@@ -3550,6 +3563,7 @@ class PlayState extends MusicBeatState
 
 				isCameraOnForcedPos = false;
 				if(!Math.isNaN(Std.parseFloat(value1)) || !Math.isNaN(Std.parseFloat(value2))) {
+					focusshit = 'none';
 					camFollow.x = val1;
 					camFollow.y = val2;
 					isCameraOnForcedPos = true;
@@ -3713,6 +3727,7 @@ class PlayState extends MusicBeatState
 			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
 			tweenCamIn();
 			callOnLuas('onMoveCamera', ['gf']);
+			focusshit = 'gf';
 			return;
 		}
 
@@ -3720,11 +3735,13 @@ class PlayState extends MusicBeatState
 		{
 			moveCamera(true);
 			callOnLuas('onMoveCamera', ['dad']);
+			focusshit = 'dad';
 		}
 		else
 		{
 			moveCamera(false);
 			callOnLuas('onMoveCamera', ['boyfriend']);
+			focusshit = 'bf';
 		}
 	}
 
